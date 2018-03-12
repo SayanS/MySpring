@@ -10,15 +10,22 @@ public class App {
         this.client=client;
     }
 
-    public void logEvent(String msg){
+    public void logEvent(Event event, String msg){
         String message=msg.replaceAll(client.getId(),client.getFullName());
-        eventLogger.logEvent(message);
+        event.setMessage(message);
+        eventLogger.logEvent(event);
     }
 
     public static void main(String[] args){
         App app;
         ApplicationContext ctx=new ClassPathXmlApplicationContext("spring.xml");
         app=ctx.getBean(App.class);
-        app.logEvent("Some event for user 1");
+
+        Event event = ctx.getBean(Event.class);
+        app.logEvent(event, "Some event for 1");
+
+        event = ctx.getBean(Event.class);
+        app.logEvent(event, "Some event for 2");
+
     }
 }
