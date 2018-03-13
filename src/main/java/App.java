@@ -1,5 +1,10 @@
-import org.springframework.context.ApplicationContext;
+import beans.Client;
+import beans.Event;
+import loggers.EventLogger;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.io.IOException;
 
 public class App {
     Client client;
@@ -10,15 +15,15 @@ public class App {
         this.client=client;
     }
 
-    public void logEvent(Event event, String msg){
+    public void logEvent(Event event, String msg) throws IOException {
         String message=msg.replaceAll(client.getId(),client.getFullName());
         event.setMessage(message);
         eventLogger.logEvent(event);
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
         App app;
-        ApplicationContext ctx=new ClassPathXmlApplicationContext("spring.xml");
+        ConfigurableApplicationContext ctx=new ClassPathXmlApplicationContext("spring.xml");
         app=ctx.getBean(App.class);
 
         Event event = ctx.getBean(Event.class);
@@ -26,6 +31,8 @@ public class App {
 
         event = ctx.getBean(Event.class);
         app.logEvent(event, "Some event for 2");
+
+        ctx.close();
 
     }
 }

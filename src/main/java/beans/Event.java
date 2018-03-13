@@ -1,9 +1,8 @@
+package beans;
+
 import java.text.DateFormat;
 import java.util.Date;
-import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import static java.lang.StrictMath.random;
 
 public class Event {
     private final static AtomicInteger AUTO_ID =new AtomicInteger(0);
@@ -28,6 +27,6 @@ public class Event {
     }
 
     public String toString(){
-        return id+ " "+message+" "+df.format(date);
+        return id+ " "+message+" "+df.format(date)+"\n";
     }
 }
