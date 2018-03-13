@@ -23,6 +23,7 @@ public class App {
 
     public static void main(String[] args) throws IOException {
         App app;
+
         ConfigurableApplicationContext ctx=new ClassPathXmlApplicationContext("spring.xml");
         app=ctx.getBean(App.class);
 
